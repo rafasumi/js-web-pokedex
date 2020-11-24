@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const db = require('../../database');
 
-const PokemonTable = db.define('Pokemon', {
+const Pokemon = db.define('Pokemon', {
     number: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -31,4 +31,4 @@ const PokemonTable = db.define('Pokemon', {
     }
 }, {timestamps: false, freezeTableName: true});
 
-module.exports = PokemonTable;
+module.exports = Pokemon;
