@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Pokemon = require('../model/Pokemon');
-const validatePokemon = require('../helpers/PokemonValidator');
+const { validatePokemon, validateUpdateFields } = require('../helpers/pokemon-validator');
 const NotFoundError = require('../../errors/NotFoundError');
 
 router.get('/', async (req, res) => {
@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
     res.send(results);
 });
 
-router.get('/:number', async (req, res) => {
+router.get('/:number', async (req, res, next) => {
     try {
         const number = req.params.number;
 
@@ -23,12 +23,11 @@ router.get('/:number', async (req, res) => {
         res.status(200);
         res.send(result);   
     } catch(error) {
-        res.status(404);
-        res.send(error.message);
+        next(error);
     }
 });
 
-router.post('/', async (req, res) =>{
+router.post('/', async (req, res, next) => {
     try {
         const fields = req.body;
         
@@ -37,11 +36,49 @@ router.post('/', async (req, res) =>{
         const result = await Pokemon.create(fields);
 
         res.status(200)
-
         res.send(result);
-    } catch (error) {
-        res.status(400);
-        res.send(error.message);
+    } catch(error) {
+        next(error)
+    }
+});
+
+router.put('/:number', async (req, res, next) => {
+    try {
+        const number = req.params.number;
+        const result = await Pokemon.findByPk(number);
+        
+        if(!result) {
+            throw new NotFoundError('Não foi possível encontrar um Pokémon com esse número!');
+        }
+
+        const fields = req.body;
+
+        validateUpdateFields(fields);
+
+        await result.update(fields);
+
+        res.status(200);
+        res.end();
+    } catch(error) {
+        next(error);
+    }
+});
+
+router.delete('/:number', async (req, res) => {
+    try {
+        const number = req.params.number;
+        const result = await Pokemon.findByPk(number);
+
+        if(!result) {
+            throw new NotFoundError('Não foi possível encontrar um Pokémon com esse número!');
+        }
+
+        result.destroy();
+
+        res.status(200);
+        res.end();
+    } catch(error) {
+        next(error);
     }
 });
 

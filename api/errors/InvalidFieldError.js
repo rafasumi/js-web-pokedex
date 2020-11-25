@@ -1,6 +1,6 @@
 class InvalidFieldError extends Error {
-    constructor(field) {
-        super(`O campo ${field} está inválido`);
+    constructor(msg) {
+        super(msg);
         this.name = 'InvalidFieldError';
     }
 }
