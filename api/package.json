@@ -4,7 +4,7 @@
   "description": "Simple Web Pokédex API ",
   "main": "index.js",
   "scripts": {
-    "dev-start": "nodemon index.js"
+    "dev": "nodemon index.js"
   },
   "author": "Rafael Sumitani",
   "license": "GPL-3.0-or-later",
