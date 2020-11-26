@@ -54,7 +54,8 @@ function validatePokemon(fields) {
         }
 
         if(!validate(fields[field])) {
-            throw new InvalidFieldError(`O campo "${fieldsTranslations[field]}" está inválido!`);
+            throw new InvalidFieldError(
+                `O campo "${fieldsTranslations[field]}" está inválido!`);
         }
     });
 }
@@ -63,24 +64,28 @@ function validateUpdateFields(fields) {
     const fieldsKeys = Object.keys(fields);
     
     if(fieldsKeys.length === 0) {
-        throw new EmptyFieldsError('Não foram fornecidos campos para atualizar o Pokémon!');
+        throw new EmptyFieldsError(
+            'Não foram fornecidos campos para atualizar o Pokémon!');
     }
     
     let validate = undefined;
 
     fieldsKeys.forEach(field => {
         if(field === 'number') {
-            throw new InvalidFieldError('O campo número não pode ser atualizado!')
+            throw new InvalidFieldError(
+                'O campo número não pode ser atualizado!')
         }
 
         validate = fieldsValidators[field];
 
         if(validate === undefined) {
-            throw new InvalidFieldError(`O campo "${field}" não existe!`);
+            throw new InvalidFieldError(
+                `O campo "${field}" não existe!`);
         }
 
         if(!validate(fields[field])) {
-            throw new InvalidFieldError(`O campo "${fieldsTranslations[field]}" está inválido!`);
+            throw new InvalidFieldError(
+                `O campo "${fieldsTranslations[field]}" está inválido!`);
         }
     });
 }

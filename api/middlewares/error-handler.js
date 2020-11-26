@@ -5,7 +5,8 @@ const NotFoundError = require('../errors/NotFoundError');
 function errorHandler(error, req, res, next) {
     let status = 500;
 
-    if(error instanceof EmptyFieldsError || error instanceof InvalidFieldError) {
+    if(error instanceof EmptyFieldsError || 
+        error instanceof InvalidFieldError) {
         status = 400;
     }
     

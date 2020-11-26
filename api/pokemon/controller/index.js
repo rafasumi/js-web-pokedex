@@ -17,7 +17,8 @@ router.get('/:number', async (req, res, next) => {
         const result = await Pokemon.findByPk(number);
 
         if(!result) {
-            throw new NotFoundError('Não foi possível encontrar um Pokémon com esse número!');
+            throw new NotFoundError(
+                'Não foi possível encontrar um Pokémon com esse número!');
         }
     
         res.status(200);
@@ -48,7 +49,8 @@ router.put('/:number', async (req, res, next) => {
         const result = await Pokemon.findByPk(number);
         
         if(!result) {
-            throw new NotFoundError('Não foi possível encontrar um Pokémon com esse número!');
+            throw new NotFoundError(
+                'Não foi possível encontrar um Pokémon com esse número!');
         }
 
         const fields = req.body;
@@ -70,7 +72,8 @@ router.delete('/:number', async (req, res) => {
         const result = await Pokemon.findByPk(number);
 
         if(!result) {
-            throw new NotFoundError('Não foi possível encontrar um Pokémon com esse número!');
+            throw new NotFoundError(
+                'Não foi possível encontrar um Pokémon com esse número!');
         }
 
         result.destroy();
