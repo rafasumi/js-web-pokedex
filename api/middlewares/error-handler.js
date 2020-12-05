@@ -20,7 +20,7 @@ function errorHandler(error, req, res, next) {
 
     if(error instanceof UniqueConstraintError) {
         status = 409;
-        message = 'Este Pokémon já foi cadastrado!';
+        message = 'Já foi cadastrado um Pokémon com esse número e/ou com esse nome!';
     }
 
     res.status(status);
