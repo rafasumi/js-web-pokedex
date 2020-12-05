@@ -46,7 +46,7 @@ const fieldsTranslations = {
 function validatePokemon(fields) {
     let validate = undefined;
     
-    Object.keys(fieldsValidators).forEach(field => {
+    Object.keys(fields).forEach(field => {
         validate = fieldsValidators[field];
 
         if(validate === undefined) {
