@@ -1,0 +1,39 @@
+.navbar a{
+    color: #ffffe6 !important;
+}
+
+a:hover {
+    color: #e8e7ae !important;
+}
+
+.navbar-brand {
+    width: 5em;
+}
+
+.brand-image {
+    width: 100%;
+    height: auto;
+}
+
+.bg-red {
+    background-color: #f52a2a;
+}
+
+.navbar-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100% !important;
+    left: 0;
+    z-index: 20;
+}
+
+.navbar-wrapper > .container {
+    padding-right: 0;
+    padding-left: 0;
+    width: inherit;
+}
+
+.navbar-wrapper .navbar {
+    width: 100% !important;
+}
