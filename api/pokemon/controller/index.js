@@ -1,7 +1,10 @@
 const router = require('express').Router();
+const upload = require('../helpers/multer-config');
 const Pokemon = require('../model/Pokemon');
-const { validatePokemon, validateUpdateFields } = require('../helpers/pokemon-validator');
+const { validatePokemon, 
+        validateUpdateFields } = require('../helpers/pokemon-validator');
 const NotFoundError = require('../../errors/NotFoundError');
+const InvalidFieldError = require('../../errors/InvalidFieldError');
 
 router.get('/', async (req, res) => {
     const results = await Pokemon.findAll({raw: true});
@@ -28,15 +31,21 @@ router.get('/:number', async (req, res, next) => {
     }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', upload.single('image'), async (req, res, next) => {
     try {
-        const fields = req.body;
+        let fields = req.body;
         
         validatePokemon(fields);
+
+        if(req.file === undefined) {
+            throw new InvalidFieldError('O campo \'imagem\' não pode ficar vazio!');
+        }
+
+        fields = { ...fields, image: req.file.filename };
         
         const result = await Pokemon.create(fields);
 
-        res.status(200)
+        res.status(200);
         res.send(result);
     } catch(error) {
         next(error);

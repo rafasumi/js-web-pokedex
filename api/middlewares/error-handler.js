@@ -1,14 +1,16 @@
 const { UniqueConstraintError } = require('sequelize');
 const EmptyFieldsError = require('../errors/EmptyFieldsError');
 const InvalidFieldError = require('../errors/InvalidFieldError');
+const InvalidExtensionError = require('../errors/InvalidExtensionError');
 const NotFoundError = require('../errors/NotFoundError');
 
 function errorHandler(error, req, res, next) {
     let status = 500;
-    let message = '';
+    let message = ''
 
     if(error instanceof EmptyFieldsError || 
-        error instanceof InvalidFieldError) {
+        error instanceof InvalidFieldError ||
+        error instanceof InvalidExtensionError) {
         status = 400;
         message = error.message;
     }
@@ -24,7 +26,7 @@ function errorHandler(error, req, res, next) {
     }
 
     res.status(status);
-    res.send(message);
+    res.send({ message, name: error.name });
 }
 
 module.exports = errorHandler;

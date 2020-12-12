@@ -28,6 +28,10 @@ const Pokemon = db.define('Pokemon', {
     type: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    image: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 }, {timestamps: false, freezeTableName: true});
 
