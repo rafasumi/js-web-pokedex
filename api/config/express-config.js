@@ -10,6 +10,9 @@ app.use(bodyParser.json());
 const fileUpload = require('express-fileupload');
 app.use(fileUpload());
 
+const cors = require('cors');
+app.use(cors());
+
 const pokemonRouter = require('../pokemon/controller');
 app.use('/pokemon', pokemonRouter);
 
