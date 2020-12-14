@@ -7,6 +7,9 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+const fileUpload = require('express-fileupload');
+app.use(fileUpload());
+
 const pokemonRouter = require('../pokemon/controller');
 app.use('/pokemon', pokemonRouter);
 
