@@ -1,0 +1,32 @@
+.solo-card {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    color: #ffffe6;
+}
+
+.solo-card strong {
+    color: #111111;
+}
+
+.solo-card .card-body {
+    background-color: #f52a2a;
+}
+
+.solo-card .list-group {
+    border-color: #bd2222;
+}
+
+.solo-card .list-group-item {
+    background-color: #f52a2a;
+    border-color: #bd2222;
+}
+
+.solo-card img {
+    margin: auto;
+    width: 50%;
+    height: auto;
+}
+
+.solo-card .link-body {
+    border-radius: 2px;
+}
