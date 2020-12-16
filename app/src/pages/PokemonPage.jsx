@@ -1,6 +1,6 @@
 import './PokemonPage.css';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Config from 'Config'
@@ -10,11 +10,13 @@ export default function PokemonPage(props) {
     const [pokemon, setPokemon] = useState({});
 
     const { number } = useParams();
-    axios.get(Config.apiUrl + number).then(res => {
-        setPokemon(res.data)
-    }).catch(err => {
-        console.log(err);
-    });
+    useEffect(() => {
+        axios.get(Config.apiUrl + number).then(res => {
+            setPokemon(res.data)
+        }).catch(err => {
+            console.log(err);
+        });
+    }, []);
     
     return(
         <div className="card solo-card">
@@ -29,7 +31,8 @@ export default function PokemonPage(props) {
                 <li className="list-group-item"><strong>Altura: </strong>{pokemon.height}m</li>
             </ul>
             <div className="card-body rounded-bottom">
-                <a href="#" className="card-link">Card link</a>
+                <i className="fa fa-trash-alt"></i>
+                <a href="#" className="card-link"></a>
                 <a href="#" className="card-link">Another link</a>
             </div>
         </div>
