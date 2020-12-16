@@ -5,7 +5,7 @@ import axios from 'axios';
 import Config from 'Config';
 
 import PokemonCard from '../templates/PokemonCard';
-import PokemonPage from './PokemonPage';
+import Pokedex from '../../public/images/pokedex.png';
 
 class PokemonList extends Component {
     constructor(props) {
@@ -33,8 +33,15 @@ class PokemonList extends Component {
 
     render() {
         return (
-            <div className="pokemonList">
-                {this.renderCards()}
+            <div className="container">
+                <div className="title">
+                    <img src={Pokedex} alt="Poxedex image"/>
+                    <h1>Pokédex</h1>
+                </div>
+                <hr/>
+                <div className="pokemonList">
+                    {this.renderCards()}
+                </div>
             </div>
         );
     }

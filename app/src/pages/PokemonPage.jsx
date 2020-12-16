@@ -31,9 +31,8 @@ export default function PokemonPage(props) {
                 <li className="list-group-item"><strong>Altura: </strong>{pokemon.height}m</li>
             </ul>
             <div className="card-body rounded-bottom">
-                <i className="fa fa-trash-alt"></i>
                 <a href="#" className="card-link"></a>
-                <a href="#" className="card-link">Another link</a>
+                <a href="#" className="card-link"></a>
             </div>
         </div>
     );
