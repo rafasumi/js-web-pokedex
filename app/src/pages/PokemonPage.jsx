@@ -1,9 +1,10 @@
 import './PokemonPage.css';
 
 import React, { useState, useEffect } from 'react';
+import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Config from 'Config'
+import Config from 'Config';
 
 export default function PokemonPage(props) {
 
@@ -30,9 +31,9 @@ export default function PokemonPage(props) {
                 <li className="list-group-item"><strong>Peso: </strong>{pokemon.weight}kg</li>
                 <li className="list-group-item"><strong>Altura: </strong>{pokemon.height}m</li>
             </ul>
-            <div className="card-body rounded-bottom">
-                <a href="#" className="card-link"></a>
-                <a href="#" className="card-link"></a>
+            <div className="card-body rounded-bottom actions">
+                <button className="btn btn-danger"><FaTrashAlt/></button>
+                <a href="#" className="btn btn-primary"><FaEdit/></a>
             </div>
         </div>
     );

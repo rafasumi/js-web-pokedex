@@ -30,3 +30,11 @@
 .solo-card .link-body {
     border-radius: 2px;
 }
+
+.actions .btn {
+    margin-right: 2em;
+}
+
+.btn-danger {
+    background-color: #b90000;
+}
