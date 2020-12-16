@@ -2,10 +2,10 @@ import './PokemonList.css';
 
 import React, { Component } from 'react';
 import axios from 'axios';
+import Config from 'Config';
 
 import PokemonCard from '../templates/PokemonCard';
-
-const URL = 'http://localhost:3000/pokemon/'
+import PokemonPage from './PokemonPage';
 
 class PokemonList extends Component {
     constructor(props) {
@@ -16,7 +16,7 @@ class PokemonList extends Component {
     }
     
     refresh() {
-        axios.get(URL)
+        axios.get(Config.apiUrl)
             .then(res => {
                 this.setState({
                     ...this.state,

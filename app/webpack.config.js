@@ -10,7 +10,7 @@ module.exports = {
     },
     devServer: {
         port: 8080,
-        contentBase: './public',
+        contentBase: './public'
     },
     resolve: {
         extensions: ['.js', '.jsx'],
@@ -37,5 +37,10 @@ module.exports = {
             test: /\.woff|.woff2|.ttf|.eot|.svg|.png|.jpg*.*$/,
             use: 'file-loader'
         }]
+    },
+    externals: {
+        'Config': JSON.stringify({
+            apiUrl: 'http://localhost:3000/pokemon/'
+        })
     }
 }

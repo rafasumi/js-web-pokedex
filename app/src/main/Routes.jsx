@@ -1,13 +1,17 @@
 import React from 'react';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { Route, 
+        BrowserRouter as Router, 
+        Switch } from 'react-router-dom';
 
 import PokemonList from '../pages/PokemonList';
+import PokemonPage from '../pages/PokemonPage';
 
 export default function Routes(props) {
     return (
         <Router>
             <Switch>
-                <Route path='/' component={ PokemonList }/>
+                <Route exact path='/' component={ PokemonList }/>
+                <Route path='/pokemon/:number' component={ PokemonPage }/>
             </Switch>
         </Router>
     );   
