@@ -1,5 +1,4 @@
 .title {
-    margin-top: 2em;
     display: flex;
 }
 
@@ -15,5 +14,10 @@
 .pokemonList {
     margin-top: 2em;
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.pokemonList .card {
+    flex-basis: 24%;
+    margin: 0 0.328em;
 }

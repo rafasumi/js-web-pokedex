@@ -23,7 +23,7 @@ export default function PokemonPage(props) {
         <div className="card solo-card">
             <img src={`../images/pokemon/${pokemon.image}`} className="card-img-top" alt="Pokemon image"/>
             <div className="card-body">
-            <h5 className="card-title"><strong>#{pokemon.number} - {pokemon.name}</strong></h5>
+            <h3 className="card-title my-auto"><strong>#{pokemon.number} - {pokemon.name}</strong></h3>
             </div>
             <ul className="list-group list-group-flush">
                 <li className="list-group-item"><strong>Tipo: </strong>{pokemon.type}</li>

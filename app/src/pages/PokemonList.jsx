@@ -34,7 +34,7 @@ class PokemonList extends Component {
     render() {
         return (
             <div className="container">
-                <div className="title">
+                <div className="title mt-3">
                     <img src={Pokedex} alt="Poxedex image"/>
                     <h1>Pokédex</h1>
                 </div>

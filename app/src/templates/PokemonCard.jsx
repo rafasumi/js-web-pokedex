@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 export default function PokemonCard(props) {
     return(
-        <div className="card list-card" >
+        <div className="card list-card mb-4" >
             <img src={`./images/pokemon/${props.pokemon.image}`} className="card-img-top" alt="Pokemon image"/>
             <div className="card-body">
                 <h5 className="card-title">#{props.pokemon.number} - {props.pokemon.name}</h5>
