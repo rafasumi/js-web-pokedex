@@ -1,6 +1,7 @@
 import './PokemonForm.css';
 
 import React, { useEffect, useState } from 'react';
+import { MdError } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Config from 'Config';
@@ -10,8 +11,14 @@ import $ from 'jquery';
 export default function PokemonForm(props) {
     const [pokemon, setPokemon] = useState({});
     const [file, setFile] = useState(null);
+    
+    const [error, setError] = useState(null);
+    const errorDiv = error
+    ? <div class="alert alert-danger my-auto" role="alert"><MdError className="mr-2"/>{error.message}</div>
+    : '' 
+    
     const history = useHistory();
-        
+    
     const handleAdd = () => {
         const formData = new FormData();
         formData.append('number', pokemon.number);
@@ -34,7 +41,7 @@ export default function PokemonForm(props) {
                     history.push('/');
                 } 
             })
-            .catch(err => console.log(err));
+            .catch(res => setError(res.response.data.error));
     }
     
     const onFormSubmit = (e) => {
@@ -53,6 +60,7 @@ export default function PokemonForm(props) {
         <div>
             <h1 className="mt-3">Pokémon Form</h1>
             <hr/>
+            {errorDiv}
             <form onSubmit={onFormSubmit}>
                 <div className="row g-3 align-items-center my-3">
                     <div className="col-auto">

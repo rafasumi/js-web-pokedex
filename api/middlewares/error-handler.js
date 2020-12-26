@@ -26,7 +26,7 @@ function errorHandler(error, req, res, next) {
     }
 
     res.status(status);
-    res.send({ message, name: error.name });
+    res.send({error: { message, name: error.name }});
 }
 
 module.exports = errorHandler;
