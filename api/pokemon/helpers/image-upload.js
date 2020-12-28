@@ -24,9 +24,10 @@ async function upload(file, newName) {
     checkFileExtension(file.name);
     
     const completeFileName = getNewFileName(file.name, newName);
-    const uploadPath = path.resolve(__dirname, 
-        '../../../app/public/images/pokemon', completeFileName);
-
+    
+    const relUploadPath = config.get('api.uploadPath');
+    const uploadPath = path.resolve(__dirname, relUploadPath, completeFileName);
+    
     await fs.writeFile(uploadPath, file.data);
 
     return completeFileName;

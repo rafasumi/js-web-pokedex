@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const upload = require('../helpers/image-upload');
+const deleteImage = require('../helpers/delete-image');
 const Pokemon = require('../model/Pokemon');
 const { validatePokemon, 
         validateUpdateFields } = require('../helpers/pokemon-validator');
@@ -37,7 +38,7 @@ router.post('/', async (req, res, next) => {
         
         validatePokemon(fields);
 
-        if(!req.files) {
+        if(!req.files || !req.files.image) {
             throw new InvalidFieldError('O campo \'imagem\' não pode ficar vazio!');
         }
         const fileName = await upload(req.files.image, fields.name);
@@ -63,9 +64,19 @@ router.put('/:number', async (req, res, next) => {
                 'Não foi possível encontrar um Pokémon com esse número!');
         }
 
-        const fields = req.body;
+        let fields = req.body;
 
-        validateUpdateFields(fields);
+        let hasImage = false; 
+        if(req.files) hasImage = true
+
+        validateUpdateFields(fields, hasImage);
+        
+        if(hasImage) {
+            const newFileName = fields.name ? fields.name : result.name;
+
+            const fileName = await upload(req.files.image, newFileName);
+            fields = {...fields, image: fileName};
+        }
 
         await result.update(fields);
 
@@ -85,8 +96,10 @@ router.delete('/:number', async (req, res) => {
             throw new NotFoundError(
                 'Não foi possível encontrar um Pokémon com esse número!');
         }
+        
+        await deleteImage(result.image);
 
-        result.destroy();
+        await result.destroy();
 
         res.status(200);
         res.end();
