@@ -6,18 +6,16 @@ const NotFoundError = require('../errors/NotFoundError');
 
 function errorHandler(error, req, res, next) {
     let status = 500;
-    let message = ''
+    let message = error.message;
 
     if(error instanceof EmptyFieldsError || 
         error instanceof InvalidFieldError ||
         error instanceof InvalidExtensionError) {
         status = 400;
-        message = error.message;
     }
     
     if(error instanceof NotFoundError) {
         status = 404;
-        message = error.message;
     }
 
     if(error instanceof UniqueConstraintError) {
