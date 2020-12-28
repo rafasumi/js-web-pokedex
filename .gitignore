@@ -1,6 +1,5 @@
 node_modules/
 default.json
 create-tables.js
-pokemon/*
 /app/public/images/pokemon/*
 !/app/public/images/pokemon/.gitkeep
