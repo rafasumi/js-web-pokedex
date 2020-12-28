@@ -10,7 +10,7 @@ function isValidPokemonNumber(number) {
 }
 
 function isValidPokemonStringField(name) {
-    if(typeof name === 'string' && name.length > 0) {
+    if(isNaN(name) && name.length > 0) {
         return true
     }
 
@@ -60,12 +60,14 @@ function validatePokemon(fields) {
     });
 }
 
-function validateUpdateFields(fields) {
+function validateUpdateFields(fields, hasImage) {
     const fieldsKeys = Object.keys(fields);
     
-    if(fieldsKeys.length === 0) {
-        throw new EmptyFieldsError(
-            'Não foram fornecidos campos para atualizar o Pokémon!');
+    if(!hasImage) {
+        if(fieldsKeys.length === 0) {
+            throw new EmptyFieldsError(
+                'Não foram fornecidos campos para atualizar o Pokémon!');
+        }
     }
     
     let validate = undefined;
