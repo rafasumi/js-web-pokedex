@@ -4,7 +4,7 @@ const InvalidFieldError = require('../errors/InvalidFieldError');
 const InvalidExtensionError = require('../errors/InvalidExtensionError');
 const NotFoundError = require('../errors/NotFoundError');
 
-function errorHandler(error, req, res, next) {
+function errorHandler(error, req, res) {
     let status = 500;
     let message = error.message;
 
@@ -24,7 +24,7 @@ function errorHandler(error, req, res, next) {
     }
 
     res.status(status);
-    res.send({error: { message, name: error.name }});
+    res.send({error: { message }});
 }
 
 module.exports = errorHandler;
