@@ -10,7 +10,8 @@ import { Route,
 import Navbar from '../templates/Navbar';
 import PokemonList from '../pages/PokemonList';
 import PokemonPage from '../pages/PokemonPage';
-import PokemonForm from '../pages/PokemonForm';
+import CreatePokemonForm from '../pages/CreatePokemonForm';
+import EditPokemonForm from '../pages/EditPokemonForm';
 
 export default function App(props) {
     return (
@@ -20,7 +21,8 @@ export default function App(props) {
                 <Switch>
                     <Route exact path='/' component={ PokemonList }/>
                     <Route path='/pokemon/:number' component={ PokemonPage }/>
-                    <Route path='/registerPokemon' component={ PokemonForm }/>
+                    <Route path='/registerPokemon' component={ CreatePokemonForm }/>
+                    <Route path='/editPokemon/:number' component={ EditPokemonForm }/>
                 </Switch>
             </Router>
         </div>

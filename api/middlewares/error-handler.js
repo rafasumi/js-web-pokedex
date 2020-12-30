@@ -4,7 +4,7 @@ const InvalidFieldError = require('../errors/InvalidFieldError');
 const InvalidExtensionError = require('../errors/InvalidExtensionError');
 const NotFoundError = require('../errors/NotFoundError');
 
-function errorHandler(error, req, res) {
+function errorHandler(error, req, res, next) {
     let status = 500;
     let message = error.message;
 

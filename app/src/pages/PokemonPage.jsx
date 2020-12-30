@@ -2,12 +2,11 @@ import './PokemonPage.css';
 
 import React, { useState, useEffect } from 'react';
 import { FaTrashAlt, FaEdit } from 'react-icons/fa';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import Config from 'Config';
 
 export default function PokemonPage(props) {
-
     const [pokemon, setPokemon] = useState({});
 
     const { number } = useParams();
@@ -33,7 +32,7 @@ export default function PokemonPage(props) {
             </ul>
             <div className="card-body rounded-bottom actions">
                 <button className="btn btn-danger"><FaTrashAlt/></button>
-                <a href="#" className="btn btn-primary"><FaEdit/></a>
+                <Link to={`/editPokemon/${pokemon.number}`} className="btn btn-primary"><FaEdit/></Link>
             </div>
         </div>
     );
