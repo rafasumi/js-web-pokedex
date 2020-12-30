@@ -2,21 +2,37 @@ import './PokemonPage.css';
 
 import React, { useState, useEffect } from 'react';
 import { FaTrashAlt, FaEdit } from 'react-icons/fa';
-import { useParams, Link } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import Config from 'Config';
+
+import ConfirmationModal from '../templates/ConfirmationModal';
 
 export default function PokemonPage(props) {
     const [pokemon, setPokemon] = useState({});
 
+    const history = useHistory();
+
     const { number } = useParams();
-    useEffect(() => {
+    useEffect(() => {        
         axios.get(Config.apiUrl + number).then(res => {
             setPokemon(res.data)
         }).catch(err => {
             console.log(err);
         });
     }, []);
+
+    const handleDelete = (e) => {
+        const confirmed = confirm(`Você deseja mesmo deletar o Pokémon ${pokemon.name}?`);
+        
+        if(confirmed) {
+            axios.delete(Config.apiUrl + pokemon.number).then(res => {
+                if(res.status === 200) {
+                    history.push('/');
+                }
+            }).catch(res => console.log(res));
+        }
+    }
     
     return(
         <div className="card solo-card">
@@ -31,7 +47,7 @@ export default function PokemonPage(props) {
                 <li className="list-group-item"><strong>Altura: </strong>{pokemon.height}m</li>
             </ul>
             <div className="card-body rounded-bottom actions">
-                <button className="btn btn-danger"><FaTrashAlt/></button>
+                <button className="btn btn-danger" onClick={handleDelete}><FaTrashAlt/></button>
                 <Link to={`/editPokemon/${pokemon.number}`} className="btn btn-primary"><FaEdit/></Link>
             </div>
         </div>
