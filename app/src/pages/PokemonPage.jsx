@@ -6,8 +6,6 @@ import { useHistory, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import Config from 'Config';
 
-import ConfirmationModal from '../templates/ConfirmationModal';
-
 export default function PokemonPage(props) {
     const [pokemon, setPokemon] = useState({});
 
