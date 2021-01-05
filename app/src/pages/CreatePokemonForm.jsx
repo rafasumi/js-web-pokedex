@@ -57,7 +57,7 @@ export default function CreatePokemonForm(props) {
     }
     
     return(
-        <div>
+        <div className="container">
             <h1 className="mt-3">Cadastrar Pokémon</h1>
             <hr/>
             {errorDiv}

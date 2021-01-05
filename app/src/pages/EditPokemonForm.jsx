@@ -65,7 +65,7 @@ export default function EditPokemonForm(props) {
     }
 
     return(
-        <div>
+        <div className="container">
             <h1 className="mt-3">Editar Pokémon</h1>
             <hr/>
             {errorDiv}

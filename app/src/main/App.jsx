@@ -15,7 +15,7 @@ import EditPokemonForm from '../pages/EditPokemonForm';
 
 export default function App(props) {
     return (
-        <div className="container">
+        <div>
             <Router>
                 <Navbar/>
                 <Switch>
