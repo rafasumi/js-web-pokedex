@@ -22,13 +22,7 @@ export default function Navbar(props) {
                                 <Link className="nav-link active" to="/">Pokédex</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active" 
-                                    to={{
-                                        pathname: "/registerPokemon",
-                                        state: {
-                                            isRegister: true
-                                        }
-                                    }}>Cadastrar Pokémon</Link>
+                                <Link className="nav-link active" to="/registerPokemon">Cadastrar Pokémon</Link>
                             </li>
                         </ul>
                     </div>
