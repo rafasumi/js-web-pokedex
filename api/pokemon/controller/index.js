@@ -87,7 +87,7 @@ router.put('/:number', async (req, res, next) => {
     }
 });
 
-router.delete('/:number', async (req, res) => {
+router.delete('/:number', async (req, res, next) => {
     try {
         const number = req.params.number;
         const result = await Pokemon.findByPk(number);
