@@ -20,7 +20,7 @@ export default function CreatePokemonForm(props) {
     const history = useHistory();
 
     useEffect(() => {
-        $('#image').on('change', function () {
+        $('#image').on('change', function() {
             var fileName = $(this).val().replace(/C:\\fakepath\\/i, '');
             $(this).next('.custom-file-label').html(fileName);
         });

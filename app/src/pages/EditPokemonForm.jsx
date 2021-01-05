@@ -27,7 +27,7 @@ export default function EditPokemonForm(props) {
             console.log(err);
         });
 
-        $('#image').on('change', function () {
+        $('#image').on('change', function() {
             var fileName = $(this).val().replace(/C:\\fakepath\\/i, '');
             $(this).next('.custom-file-label').html(fileName);
         });

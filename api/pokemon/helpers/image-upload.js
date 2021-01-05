@@ -25,8 +25,8 @@ async function upload(file, newName) {
     
     const completeFileName = getNewFileName(file.name, newName);
     
-    const relUploadPath = config.get('api.uploadPath');
-    const uploadPath = path.resolve(__dirname, relUploadPath, completeFileName);
+    const relativeUploadPath = config.get('api.uploadPath');
+    const uploadPath = path.resolve(__dirname, relativeUploadPath, completeFileName);
     
     await fs.writeFile(uploadPath, file.data);
 
