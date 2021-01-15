@@ -1,14 +1,9 @@
 const router = require('express').Router();
-const upload = require('../helpers/image-upload');
-const deleteImage = require('../helpers/delete-image');
-const Pokemon = require('../model/Pokemon');
-const { validatePokemon, 
-        validateUpdateFields } = require('../helpers/pokemon-validator');
-const NotFoundError = require('../../errors/NotFoundError');
-const InvalidFieldError = require('../../errors/InvalidFieldError');
+const service = require('../services/PokemonService');
+const PokemonService = new service();
 
 router.get('/', async (req, res) => {
-    const results = await Pokemon.findAll({raw: true});
+    const results = await PokemonService.getAll();
 
     res.status(200);
     res.send(results);
@@ -16,17 +11,10 @@ router.get('/', async (req, res) => {
 
 router.get('/:number', async (req, res, next) => {
     try {
-        const number = req.params.number;
+        const result = await PokemonService.getByNumber(req.params.number);
 
-        const result = await Pokemon.findByPk(number);
-
-        if(!result) {
-            throw new NotFoundError(
-                'Não foi possível encontrar um Pokémon com esse número!');
-        }
-    
         res.status(200);
-        res.send(result);   
+        res.send(result);
     } catch(error) {
         next(error);
     }
@@ -34,18 +22,8 @@ router.get('/:number', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try {
-        let fields = req.body;
-        
-        validatePokemon(fields);
-
-        if(!req.files || !req.files.image) {
-            throw new InvalidFieldError('O campo \'imagem\' não pode ficar vazio!');
-        }
-        const fileName = await upload(req.files.image, fields.name);
-        
-        fields = { ...fields, image: fileName };
-        
-        const result = await Pokemon.create(fields);
+        const fields = req.body;
+        const result = await PokemonService.create(fields, req.files);
 
         res.status(200);
         res.send(result);
@@ -56,29 +34,9 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:number', async (req, res, next) => {
     try {
-        const number = req.params.number;
-        const result = await Pokemon.findByPk(number);
-        
-        if(!result) {
-            throw new NotFoundError(
-                'Não foi possível encontrar um Pokémon com esse número!');
-        }
-
-        let fields = req.body;
-
-        let hasImage = false; 
-        if(req.files) hasImage = true
-
-        validateUpdateFields(fields, hasImage);
-        
-        if(hasImage) {
-            const newFileName = fields.name ? fields.name : result.name;
-
-            const fileName = await upload(req.files.image, newFileName);
-            fields = {...fields, image: fileName};
-        }
-
-        await result.update(fields);
+        const pokemonNumber = req.params.number
+        const fields = req.body;
+        await PokemonService.update(pokemonNumber, fields, req.files);
 
         res.status(200);
         res.end();
@@ -89,17 +47,8 @@ router.put('/:number', async (req, res, next) => {
 
 router.delete('/:number', async (req, res, next) => {
     try {
-        const number = req.params.number;
-        const result = await Pokemon.findByPk(number);
-
-        if(!result) {
-            throw new NotFoundError(
-                'Não foi possível encontrar um Pokémon com esse número!');
-        }
-        
-        await deleteImage(result.image);
-
-        await result.destroy();
+        const pokemonNumber = req.params.number;
+        await PokemonService.delete(pokemonNumber);
 
         res.status(200);
         res.end();
