@@ -77,4 +77,4 @@ class PokemonService {
     }
 }
 
-module.exports = PokemonService;
+module.exports = new PokemonService();

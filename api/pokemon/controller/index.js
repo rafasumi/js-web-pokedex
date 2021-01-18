@@ -1,6 +1,5 @@
 const router = require('express').Router();
-const service = require('../services/PokemonService');
-const PokemonService = new service();
+const PokemonService = require('../services/PokemonService');
 
 router.get('/', async (req, res) => {
     const results = await PokemonService.getAll();
