@@ -30,7 +30,7 @@ async function upload(file, newName) {
     
     await fs.writeFile(uploadPath, file.data);
 
-    return new Promise((resolve, reject) => resolve(completeFileName));
+    return completeFileName;
 }
 
 module.exports = upload;
