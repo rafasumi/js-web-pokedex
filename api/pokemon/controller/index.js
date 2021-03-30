@@ -5,7 +5,7 @@ router.get('/', async (req, res) => {
     const results = await PokemonService.getAll();
 
     res.status(200);
-    res.send(results);
+    res.json(results);
 });
 
 router.get('/:number', async (req, res, next) => {
@@ -13,7 +13,7 @@ router.get('/:number', async (req, res, next) => {
         const result = await PokemonService.getByNumber(req.params.number);
 
         res.status(200);
-        res.send(result);
+        res.json(result);
     } catch(error) {
         next(error);
     }
@@ -25,7 +25,7 @@ router.post('/', async (req, res, next) => {
         const result = await PokemonService.create(fields, req.files);
 
         res.status(200);
-        res.send(result);
+        res.json(result);
     } catch(error) {
         next(error);
     }

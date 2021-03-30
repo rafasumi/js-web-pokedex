@@ -1,11 +1,10 @@
 const express = require('express');
 const app = express();
 
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({
+app.use(express.urlencoded({
     extended: true
 }));
-app.use(bodyParser.json());
+app.use(express.json());
 
 const fileUpload = require('express-fileupload');
 app.use(fileUpload());
