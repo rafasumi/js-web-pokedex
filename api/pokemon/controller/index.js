@@ -12,8 +12,7 @@ router.get('/:number', async (req, res, next) => {
     try {
         const result = await PokemonService.getByNumber(req.params.number);
 
-        res.status(200);
-        res.json(result);
+        res.status(200).json(result);
     } catch(error) {
         next(error);
     }
@@ -22,10 +21,9 @@ router.get('/:number', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     try {
         const fields = req.body;
-        const result = await PokemonService.create(fields, req.files);
+        await PokemonService.create(fields, req.files);
 
-        res.status(200);
-        res.json(result);
+        res.status(204).end();
     } catch(error) {
         next(error);
     }
@@ -37,8 +35,7 @@ router.put('/:number', async (req, res, next) => {
         const fields = req.body;
         await PokemonService.update(pokemonNumber, fields, req.files);
 
-        res.status(200);
-        res.end();
+        res.status(200).end();
     } catch(error) {
         next(error);
     }
@@ -49,8 +46,7 @@ router.delete('/:number', async (req, res, next) => {
         const pokemonNumber = req.params.number;
         await PokemonService.delete(pokemonNumber);
 
-        res.status(200);
-        res.end();
+        res.status(200).end();
     } catch(error) {
         next(error);
     }

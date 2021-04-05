@@ -35,9 +35,7 @@ class PokemonService {
         
         pokemon = { ...pokemon, image: fileName };
         
-        const result = await Pokemon.create(pokemon);
-
-        return result;
+        await Pokemon.create(pokemon);
     }
 
     async update(number, fields, files) {
