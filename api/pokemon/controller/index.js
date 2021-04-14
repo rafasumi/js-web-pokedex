@@ -4,8 +4,7 @@ const PokemonService = require('../services/PokemonService');
 router.get('/', async (req, res) => {
     const results = await PokemonService.getAll();
 
-    res.status(200);
-    res.json(results);
+    res.status(200).json(results);
 });
 
 router.get('/:number', async (req, res, next) => {
@@ -23,7 +22,7 @@ router.post('/', async (req, res, next) => {
         const fields = req.body;
         await PokemonService.create(fields, req.files);
 
-        res.status(204).end();
+        res.status(201).end();
     } catch(error) {
         next(error);
     }
