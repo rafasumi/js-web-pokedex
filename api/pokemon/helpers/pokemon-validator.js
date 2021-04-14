@@ -93,6 +93,6 @@ function validateUpdateFields(fields, hasImage) {
 }
 
 module.exports = {
-    validatePokemon: validatePokemon,
-    validateUpdateFields: validateUpdateFields
+    validatePokemon,
+    validateUpdateFields
 };
