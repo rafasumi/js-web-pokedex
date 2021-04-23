@@ -1,4 +1,4 @@
-const Pokemon = require('../model/Pokemon');
+const PokemonRepository = require('../repository/PokemonRepository');
 const { validatePokemon, 
         validateUpdateFields } = require('../helpers/pokemon-validator');
 const upload = require('../helpers/image-upload');
@@ -10,12 +10,12 @@ class PokemonService {
     constructor() {}
 
     async getAll() {
-        const results = await Pokemon.findAll({raw: true});
+        const results = await PokemonRepository.getAll();
         return results;
     }
 
     async getByNumber(number) {
-        const result = await Pokemon.findByPk(number);
+        const result = await PokemonRepository.getByNumber(number);
 
         if(!result) {
             throw new NotFoundError(
@@ -35,11 +35,11 @@ class PokemonService {
         
         pokemon = { ...pokemon, image: fileName };
         
-        await Pokemon.create(pokemon);
+        await PokemonRepository.create(pokemon);
     }
 
     async update(number, fields, files) {
-        const result = await Pokemon.findByPk(number);
+        const result = await PokemonRepository.getByNumber(number);
         
         if(!result) {
             throw new NotFoundError(
@@ -58,11 +58,11 @@ class PokemonService {
             fields = {...fields, image: fileName};
         }
 
-        await result.update(fields);
+        await PokemonRepository.update(fields, number);
     }
 
     async delete(number) {
-        const result = await Pokemon.findByPk(number);
+        const result = await PokemonRepository.getByNumber(number);
 
         if(!result) {
             throw new NotFoundError(
@@ -71,7 +71,7 @@ class PokemonService {
         
         await deleteImage(result.image);
 
-        await result.destroy();
+        await PokemonRepository.delete(number);
     }
 }
 
