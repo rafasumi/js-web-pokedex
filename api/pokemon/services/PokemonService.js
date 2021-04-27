@@ -1,6 +1,4 @@
 const PokemonRepository = require('../repository/PokemonRepository');
-const { validatePokemon, 
-        validateUpdateFields } = require('../helpers/pokemon-validator');
 const upload = require('../helpers/image-upload');
 const deleteImage = require('../helpers/delete-image');
 const NotFoundError = require('../../errors/NotFoundError');
@@ -25,36 +23,29 @@ class PokemonService {
         return result;
     }
 
-    async create(pokemon, files) {
-        validatePokemon(pokemon);
-
-        if(!files || !files.image) {
+    async create(pokemon, image) {
+        if(!image) {
             throw new InvalidFieldError('O campo \'imagem\' não pode ficar vazio!');
         }
-        const fileName = await upload(files.image, pokemon.name);
+        const fileName = await upload(image, pokemon.name);
         
         pokemon = { ...pokemon, image: fileName };
         
         await PokemonRepository.create(pokemon);
     }
 
-    async update(number, fields, files) {
+    async update(number, fields, image) {
         const result = await PokemonRepository.getByNumber(number);
         
         if(!result) {
             throw new NotFoundError(
                 'Não foi possível encontrar um Pokémon com esse número!');
         }
-
-        let hasImage = false; 
-        if(files) hasImage = true
-
-        validateUpdateFields(fields, hasImage);
         
-        if(hasImage) {
+        if(image) {
             const newFileName = fields.name ? fields.name : result.name;
 
-            const fileName = await upload(files.image, newFileName);
+            const fileName = await upload(image, newFileName);
             fields = {...fields, image: fileName};
         }
 

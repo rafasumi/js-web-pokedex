@@ -1,4 +1,7 @@
 const router = require('express').Router();
+const {validationResult} = require('express-validator');
+const {validate} = require('../../middlewares/pokemon-validator');
+const {requestFilter} = require('../../middlewares/object-filter');
 const PokemonService = require('../services/PokemonService');
 
 router.get('/', async (req, res) => {
@@ -17,28 +20,61 @@ router.get('/:number', async (req, res, next) => {
     }
 });
 
-router.post('/', async (req, res, next) => {
-    try {
-        const fields = req.body;
-        await PokemonService.create(fields, req.files);
+router.post('/',
+    requestFilter('body', [
+        'number', 
+        'name', 
+        'height', 
+        'weight', 
+        'category', 
+        'type'
+    ]),
+    validate('create'),
+    async (req, res, next) => {
+        try {
+            const result = validationResult(req);
+            if (!result.isEmpty()) {
+                return res.status(400).json(result.errors);
+            }
+            
+            const fields = req.body;
+            const image = req.files ? req.files.image : undefined;
+            await PokemonService.create(fields, image);
 
-        res.status(201).end();
-    } catch(error) {
-        next(error);
+            res.status(201).end();
+        } catch(error) {
+            next(error);
+        }
     }
-});
+);
 
-router.put('/:number', async (req, res, next) => {
-    try {
-        const pokemonNumber = req.params.number
-        const fields = req.body;
-        await PokemonService.update(pokemonNumber, fields, req.files);
+router.put('/:number',
+    requestFilter('body', [
+        'name', 
+        'height', 
+        'weight', 
+        'category', 
+        'type'
+    ]),
+    validate('update'),
+    async (req, res, next) => {
+        try {
+            const result = validationResult(req);
+            if (!result.isEmpty()) {
+                return res.status(400).json(result.errors);
+            }
 
-        res.status(200).end();
-    } catch(error) {
-        next(error);
+            const pokemonNumber = req.params.number
+            const fields = req.body;
+            const image = req.files ? req.files.image : undefined;
+            await PokemonService.update(pokemonNumber, fields, image);
+
+            res.status(200).end();
+        } catch(error) {
+            next(error);
+        }
     }
-});
+);
 
 router.delete('/:number', async (req, res, next) => {
     try {
