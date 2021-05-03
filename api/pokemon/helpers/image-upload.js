@@ -1,11 +1,10 @@
 const {writeFile} = require('fs').promises;
 const {resolve, extname} = require('path');
-const config = require('config');
 const InvalidExtensionError = require('../../errors/InvalidExtensionError');
 const FileSizeTooLargeError = require('../../errors/FileSizeTooLargeError');
 
+const allowedExtensions = ['jpg', 'png', 'jpeg'];
 function checkFileExtension(fileName) {
-    const allowedExtensions = config.get('api.allowedExtensions');
     const extension = extname(fileName);
 
     const isValidExtension = allowedExtensions.indexOf(
@@ -33,7 +32,7 @@ async function upload(file, newName) {
     
     const completeFileName = getNewFileName(file.name, newName);
     
-    const relativeUploadPath = config.get('api.uploadPath');
+    const relativeUploadPath = process.env.uploadPath;
     const uploadPath = resolve(__dirname, relativeUploadPath, completeFileName);
 
     await writeFile(uploadPath, file.data);
