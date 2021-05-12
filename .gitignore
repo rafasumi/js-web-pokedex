@@ -1,7 +1,7 @@
 node_modules/
 coverage/
-default.json
 test.json
 create-tables.js
 /app/public/images/pokemon/*
 !/app/public/images/pokemon/.gitkeep
+.env

@@ -1,6 +1,6 @@
 const PokemonRepository = require('../repository/PokemonRepository');
-const upload = require('../helpers/image-upload');
-const deleteImage = require('../helpers/delete-image');
+const upload = require('../../helpers/image-upload');
+const deleteImage = require('../../helpers/delete-image');
 const NotFoundError = require('../../errors/NotFoundError');
 const InvalidFieldError = require('../../errors/InvalidFieldError');
 

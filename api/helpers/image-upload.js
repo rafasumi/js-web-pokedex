@@ -1,7 +1,7 @@
 const {writeFile} = require('fs').promises;
 const {resolve, extname} = require('path');
-const InvalidExtensionError = require('../../errors/InvalidExtensionError');
-const FileSizeTooLargeError = require('../../errors/FileSizeTooLargeError');
+const InvalidExtensionError = require('../errors/InvalidExtensionError');
+const FileSizeTooLargeError = require('../errors/FileSizeTooLargeError');
 
 const allowedExtensions = ['jpg', 'png', 'jpeg'];
 function checkFileExtension(fileName) {
@@ -18,6 +18,9 @@ function checkFileExtension(fileName) {
 
 function getNewFileName(originalFileName, newFileName) {
     const extension = extname(originalFileName);
+
+    newFileName = newFileName.replace(/[.-\s]/g, '');
+
     return newFileName.toLowerCase() + extension;
 }
 

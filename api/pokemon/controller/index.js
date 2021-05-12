@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {validationResult} = require('express-validator');
-const {validate} = require('../../middlewares/pokemon-validator');
+const {pokemonValidate} = require('../../middlewares/pokemon-validator');
 const {requestFilter} = require('../../middlewares/object-filter');
 const PokemonService = require('../services/PokemonService');
 
@@ -29,14 +29,9 @@ router.post('/',
         'category', 
         'type'
     ]),
-    validate('create'),
+    pokemonValidate('create'),
     async (req, res, next) => {
         try {
-            const result = validationResult(req);
-            if (!result.isEmpty()) {
-                return res.status(400).json(result.errors);
-            }
-            
             const fields = req.body;
             const image = req.files ? req.files.image : undefined;
             await PokemonService.create(fields, image);
@@ -56,14 +51,9 @@ router.put('/:number',
         'category', 
         'type'
     ]),
-    validate('update'),
+    pokemonValidate('update'),
     async (req, res, next) => {
         try {
-            const result = validationResult(req);
-            if (!result.isEmpty()) {
-                return res.status(400).json(result.errors);
-            }
-
             const pokemonNumber = req.params.number
             const fields = req.body;
             const image = req.files ? req.files.image : undefined;

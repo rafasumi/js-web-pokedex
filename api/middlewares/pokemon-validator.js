@@ -1,6 +1,7 @@
 const {body} = require('express-validator');
+const {validate} = require('./validate');
 
-const validate = (method) => {
+const getValidations = (method) => {
     switch (method) {
     case 'create': {
         return [
@@ -13,7 +14,7 @@ const validate = (method) => {
             body('name')
                 .exists()
                 .withMessage('O campo de nome deve estar preenchido!')
-                .isAlpha()
+                .isAlpha('en-US', {ignore: ' -.'})
                 .withMessage('O campo de nome possui caracteres inválidos'),
             body('height')
                 .exists()
@@ -66,4 +67,6 @@ const validate = (method) => {
     }
 };
 
-module.exports = {validate};
+module.exports = {
+    pokemonValidate: (method) => validate(getValidations(method)),
+};
