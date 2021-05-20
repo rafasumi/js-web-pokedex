@@ -14,6 +14,8 @@ app.use(fileUpload());
 const cors = require('cors');
 app.use(cors());
 
+require('../database/index');
+
 const pokemonRouter = require('../pokemon/controller');
 app.use('/pokemon', pokemonRouter);
 

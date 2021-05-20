@@ -24,6 +24,7 @@ function errorHandler(error, req, res, next) {
             'Já foi cadastrado um Pokémon com esse número e/ou com esse nome!';
     }
 
+    console.log(error);
     res.status(status);
     res.send({error: { message }});
 }

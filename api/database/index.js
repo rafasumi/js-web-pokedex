@@ -1,13 +1,9 @@
-const Sequelize = require('sequelize');
+const mongoose = require('mongoose');
+mongoose.connect(process.env.mongoDbUri, {
+  useNewUrlParser: true, 
+  useUnifiedTopology: true
+});
+mongoose.connection.on('error', 
+  console.error.bind(console, 'connection error:'));
 
-const db = new Sequelize(
-    process.env.database,
-    process.env.user,
-    process.env.password,    
-    {
-        host: process.env.dbHost,
-        dialect: 'mysql'
-    }
-);
-
-module.exports = db;
+module.exports = mongoose;

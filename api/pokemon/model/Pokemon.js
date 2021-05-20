@@ -1,38 +1,37 @@
-const { DataTypes } = require('sequelize');
-const db = require('../../database');
+const mongoose = require('../../database/');
 
-const Pokemon = db.define('Pokemon', {
+const pokemonSchema = new mongoose.Schema({
     number: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: false,
-        allowNull: false
-    },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: Number, 
+        required: true, 
         unique: true
     },
+    name: {
+        type: String, 
+        required: true
+    },
     height: {
-        type: DataTypes.DOUBLE,
-        allowNull: false
+        type: Number, 
+        required: true
     },
     weight: {
-        type: DataTypes.DOUBLE,
-        allowNull: false
+        type: Number, 
+        required: true
     },
     category: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: String, 
+        required: true
     },
     type: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: String, 
+        required: true
     },
     image: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: String, 
+        required: true
     }
-}, {timestamps: false, freezeTableName: true});
+}, {autoIndex: false});
+
+const Pokemon = mongoose.model('Pokemon', pokemonSchema, 'pokedex');
 
 module.exports = Pokemon;

@@ -2,23 +2,37 @@ const Pokemon = require('../model/Pokemon');
 
 class PokemonRepository {
     getAll() {
-        return Pokemon.findAll({raw: true});
+        return Pokemon.find({}).lean().exec();
     }
 
-    getByNumber(number) {
-        return Pokemon.findByPk(number);
+    async getByNumber(number) {
+        const result = await Pokemon.find({number: number}).lean().exec();
+
+        if (result.length === 0) {
+            return undefined;
+        } else {
+            return result[0];
+        }
     }
 
-    create(pokemon) {
-        return Pokemon.create(pokemon);
+    async create(pokemon) {
+        const query = new Pokemon(pokemon);
+        await query.save();
     }
 
-    update(pokemon, number) {
-        return Pokemon.update(pokemon, {where: {number: number}});
+    async update(pokemon, number) {
+        await Pokemon.findOneAndUpdate(
+            {number: number}, 
+            pokemon, 
+            {useFindAndModify: true}
+        ).exec();
     }
 
-    delete(number) {
-        return Pokemon.destroy({where: {number: number}});
+    async delete(number) {
+        await Pokemon.findOneAndDelete(
+            {number: number}, 
+            {useFindAndModify: true}
+        ).exec();
     }
 }
 
